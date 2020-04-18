@@ -33,7 +33,7 @@ out1_address   = "2MsiAgG5LVDmnmJUPnYaCeQnARWGbGSVnr3"
 out1_amount    = in1_amount - 192
 
 # Defaults
-tx_version     = 1
+tx_version     = 2
 tx_locktime    = 0
 sequence       = 4294967293
 

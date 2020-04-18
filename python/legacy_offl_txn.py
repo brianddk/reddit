@@ -4,6 +4,7 @@
 # [repo]    https://github.com/brianddk/reddit/python/legacy_offl_txn.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  https://github.com/brianddk/reddit/tipjar.txt
+# [req]     pip3 install trezor
 
 from trezorlib import btc, messages as proto, tools, ui
 from trezorlib import MINIMUM_FIRMWARE_VERSION as min_version
@@ -31,7 +32,7 @@ out1_address   = "msj42CCGruhRsFrGATiUuh25dtxYtnpbTx"
 out1_amount    = in1_amount - 192
 
 # Defaults
-tx_version     = 1
+tx_version     = 2
 tx_locktime    = 0
 sequence       = 4294967293
 
