@@ -1,5 +1,7 @@
 Assuming you have a willing parent or guardian, here's an example of how that would work for a minor in the US via CashApp.  Ensure your upfront with the parent or guardian as to what your doing.
 
+(If your parent or guardian is unwilling, skip ahead)
+
 1. Get a summer job with some source of direct deposit income.
 2. Ask your legal guardian to help you open a "Youth Spending" checking account also called UTMA.
 3. Ask for a debit card attached to the account.
@@ -32,7 +34,7 @@ For those with guardians or parents that would not agree to KYC for you, here ar
 
 Please remember that bitcon is easy to steal.  Since minor's have limited standing in US courts, most exchanges don't want to deal with them.  If you proceed there is a 100% chance that someone ***will*** try to scam you.  Make sure you catch every scammer you encounter, or you will go broke fast.
 
-Source: [Bitcoin for Kids](https://gist.github.com/brianddk/90db0a6eb04844d75701f065a1cad33a)
+Source: [Bitcoin for Kids](https://github.com/brianddk/reddit/blob/master/markdown/bitcoin-for-kids.md)
 
 #### Tips
 <details>

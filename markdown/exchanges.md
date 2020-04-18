@@ -1,11 +1,4 @@
-<!--
-# [rights]  Copyright 2020 brianddk at github https://github.com/brianddk
-# [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
-# [repo]    https://github.com/brianddk/reddit/markdown/exchanges.md
-# [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
-# [tipjar]  https://github.com/brianddk/reddit/tipjar.txt
--->
-Here are the 5 major exchanges for the US.  Also check the [exchange picker](https://bitcoin.org/en/exchanges)
+Here are the 5 major exchanges for the US and the fees to transact on them.  Also check the [exchange picker](https://bitcoin.org/en/exchanges)
 
 * r/Binance - 0.10% + 0.0004 BTC withdraw fee
 * r/Kraken - 0.16% + 0.0005 BTC withdraw fee

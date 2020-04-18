@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # [rights]  Copyright 2020 brianddk at github https://github.com/brianddk
 # [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
-# [repo]    https://github.com/brianddk/reddit/python/legacy_offl_txn.py
+# [repo]    https://github.com/brianddk/reddit ... python/legacy_offl_txn.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  https://github.com/brianddk/reddit/tipjar.txt
 # [req]     pip3 install trezor
@@ -43,12 +43,11 @@ in1_prev_hash_b = bytes.fromhex(in1_prev_hash)
 device = get_transport()
 client = TrezorClient(transport=device, ui=ui.ClickUI())
 
-fw_version = (client.features.major_version, 
-           client.features.minor_version, client.features.patch_version)
-if fw_version < min_version[client.features.model]:
+if min_version[client.features.model] > (client.features.major_version,
+    client.features.minor_version, client.features.patch_version):
     print("Please flash to the latest FW")
     exit(1)
-
+    
 signtx = proto.SignTx(
     version = tx_version,
     lock_time = tx_locktime

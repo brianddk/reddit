@@ -8,4 +8,4 @@ My will names a specific member of my family as the cryptography executor to my 
 
 The executor does not know my seed and will only be given the seed once my benefactors have verified the balance in the wallet.  If BTC moons and the amount becomes more than the executor can be trusted with, my benefactors will need to think of a way to add legal teeth to the probation of my estate.
 
-Basically my `legal-will.txt` and a `where-is-the-seed.txt`, both clear-signed with my PGP key and are replicated in separate geographic locations.
+Basically my `legal-will.txt` and a `where-is-the-seed.txt` files are both clear-signed with my PGP key and are replicated in separate geographic locations.
