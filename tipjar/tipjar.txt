@@ -1,0 +1,21 @@
+BTC:         3AAzK4Xbu8PTM8AD3fDnmjdNkXkmu6PS7R
+BTC-bech32:  bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
+ETH/BAT/DAI: 0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b
+LTC:         MKcAge42cX6WZnnPfFGJAxReUYZUbsi6t3
+LTC-bech32:  ltc1q5uucgx9f8n70nq7jmjy03rpg84cm4tm70z5rz6
+BCH-cashadr: qqz77k4rqar3uppj8k28de06narwkqaamcf624p8zl
+
+Tippin.me Page:      https://tippin.me/@dkbriand
+Tallyco.in Page:     https://tallyco.in/dkbriand/
+
+u/chaintip (reddit): userid: brianddk
+u/tippr (reddit):    userid: brianddk
+u/lntipbot (reddit): userid: brianddk
+
+Brave referral:      https://brave.com/rgp067
+Coinbase referral:   https://www.coinbase.com/join/51d3b6d15292df353a000008
+Coinbase earn XLM:   https://coinbase.com/earn/xlm/invite/hc8jwk96
+Coinbase earn EOS:   https://coinbase.com/earn/eos/invite/6mtrf1w4
+Coinbase earn OXT:   https://coinbase.com/earn/oxt/invite/4txq1d3n
+Binance referral:    https://www.binance.com/?ref=11716666
+OpenNode referral:   https://app.opennode.co/join/8fdbd02b-361b-4be9-8937-5079d1398002
