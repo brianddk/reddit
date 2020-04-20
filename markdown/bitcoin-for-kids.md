@@ -24,7 +24,7 @@ For those with guardians or parents that would not agree to KYC for you, here ar
 * [Purse.io/earn](https://purse.io/earn/btc) (shop Amazon for BTC, must be 13yo).
 * [Mycelium Local Trader](https://mycelium.com/lt/help.html)
 * [Meetup.com - Bitcoin](https://www.meetup.com/topics/bitcoin/) or any meetup you can find.  Ask (discretely) to buy BTC for cash after the meeting.
-* Switch to [Brave Browser](https://brave.com/bri541) and get small amounts of cryptocurrency while you surf, but you can't cash out till your 18.
+* Switch to [Brave Browser](https://brave.com/bri541) ^(referral) and get small amounts of cryptocurrency while you surf, but you can't cash out till your 18.
 * Buy altcoin then [convert to Bitcoin](https://new.reddit.com/r/Bitcoin/comments/cd1fr8/list_of_nokyc_instant_exchanges/).  Different coins have different P2P buy options.
 * Mining <= Super crazy risky unless your a savaont, makeing a profit is hard.
 * Craigslist sell for Bitcoin (double the price and offer 50% off if paid with Bitcoin)

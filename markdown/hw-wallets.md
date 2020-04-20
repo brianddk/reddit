@@ -1,4 +1,4 @@
-> Best Wallets to use on Mac?
+> Best Wallets
 
 The "best" wallet is a HW wallet.  They are much more difficult for an attacker to compromise, but they cost money.
 
@@ -9,4 +9,6 @@ The "best" wallet is a HW wallet.  They are much more difficult for an attacker 
 * ColdCard $120 - Provides SE, and source, but cannot verify builds 
 * Trezor-T $160 - Provides Deterministic builds (max open-source)
 
-All of these work with Electrum, but you'll have to RTFM to determine which work with your particular collection of altcoins.
+All of these work with Electrum.  I'd consider Electrum the best wallet SW to use either with or without a HW-wallet.  
+
+If you use altcoins, you'll have to RTFM to determine which hw-wallets work with which alts.

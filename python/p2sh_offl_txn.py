@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 # [rights]  Copyright 2020 brianddk at github https://github.com/brianddk
 # [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
-# [repo]    https://github.com/brianddk/reddit ... python/p2sh_offl_txn.py
+# [repo]    github.com/brianddk/reddit/blob/master/python/p2sh_offl_txn.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
-# [tipjar]  https://github.com/brianddk/reddit/tipjar.txt
+# [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 # [req]     pip3 install trezor
 
 from trezorlib import btc, messages as proto, tools, ui
 from trezorlib import MINIMUM_FIRMWARE_VERSION as min_version
+from trezorlib import __version__ as lib_version
 from trezorlib.client import TrezorClient
 from trezorlib.transport import get_transport
 from trezorlib.btc import from_json
-from json import loads
+from sys import version_info as py_ver, exit
 from decimal import Decimal
-from sys import exit
+from json import loads
 
 # Tested with SLIP-0014 allallall seed (slip-0014.md)
 # User Provided Fields; These are pulled from test scripts
@@ -44,9 +45,14 @@ in1_prev_hash_b = bytes.fromhex(in1_prev_hash)
 device = get_transport()
 client = TrezorClient(transport=device, ui=ui.ClickUI())
 
-if min_version[client.features.model] > (client.features.major_version,
-    client.features.minor_version, client.features.patch_version):
-    print("Please flash to the latest FW")
+fw = client.features
+fw_min = min_version[fw.model]
+py_min = (3,6,0)
+tl_min = [0,12,0]
+if (fw_min > (fw.major_version, fw.minor_version,fw.patch_version) or 
+    tl_min > [int(i) for i in lib_version.split('.')] or py_min > py_ver):
+    m = "Requires at least Python rev {}, trezorlib rev {}, and FW rev {}"
+    print(m.format(py_min, tl_min, fw_min))
     exit(1)
     
 signtx = proto.SignTx(
