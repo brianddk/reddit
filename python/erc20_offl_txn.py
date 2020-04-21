@@ -19,14 +19,14 @@ from hashlib import sha256
 # Tested with SLIP-0014 allallall seed (slip-0014.md)
 # User Provided Fields; These are pulled from test scripts
 # CHANGE THESE!!!
+chain_id        = 1                                            #EIP-155
 address         = "m/44'/60'/0'/0/0"
+gas_limit       = 200000
+gas_price       = 5000000000
+nonce           = 11
 token_address   = "0xa74476443119A942dE498590Fe1f2454d7D4aC0d" #EIP-55
 to_address      = "0xA6ABB480640d6D27D2FB314196D94463ceDcB31e" #EIP-55
-nonce           = 11
-gas_price       = 5000000000
-gas_limit       = 200000
 amount          = 5000000000000000
-chain_id        = 1                                            #EIP-155
 
 device = get_transport()
 client = TrezorClient(transport=device, ui=ui.ClickUI())
@@ -75,6 +75,7 @@ sig = ethereum.sign_tx(
     data=data,
     chain_id=chain_id,
 )
+client.close()
 
 to = bytes.fromhex(to_address[2:])
 transaction = rlp_encode((nonce, gas_price, gas_limit, to, amount, data) + sig)
