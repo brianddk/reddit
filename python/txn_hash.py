@@ -10,40 +10,58 @@ from hashlib import sha256
 from sys import exit
 
 def isvi(vint):
-    if (vint >= int('fd'):
+    if vint >= int('fd', 16):
         print("ERROR: varint detected")
         exit(1)
 
-def slice_int(b,s,w=1, test=True):
-    s = int(b[s:s+w].hex(),16)
-    if test: isvi(s)
-    return s
+def sb(tx, offsets, advance=True):
+    if offsets:
+        if isinstance(offsets,int):
+            isvi(offsets)
+            offsets = (offsets, 1)
+        s, w = offsets
+        e = s+w
+        if advance:
+            return (e, tx[s:e])
+        return tx[s:e]
+    return (offsets, b'')
 
+def b2i(b):
+    return int(b.hex(),16)
+    
+def inputs(tx, p):
+    s = p
+    p, count = sb(tx, p)
+    for i in range(0, b2i(count)):
+        p, prev_out = sb(tx, (p, 36))
+        p, script_len = sb(tx, p)
+        p, script = sb(tx, (p, b2i(script_len)))
+        p, seq = sb(tx, (p,4))
+    return p, (s, p-s)
+    
+def outputs(tx, p):
+    s = p
+    p, count = sb(tx, p)
+    for i in range(0, b2i(count)):
+        p, value = sb(tx, (p, 8))
+        p, script_len = sb(tx, p)
+        p, script = sb(tx, (p, b2i(script_len)))
+    return p, (s, p-s)
+    
 def txid(tx):
-    v  = 4
-    f  = 2
-    ic = 1    
-    bin  = bytes.fromhex(tx)
-    p = v; 
-    flags = slice_int(bin, p, f, False)
+    tx  = bytes.fromhex(tx)
+    _version  = (0, 4)
+    _flags    = (4, 2)
+    _locktime = (len(tx)-4, 4)    
+    p, flags = sb(tx,_flags)
+    flags = b2i(flags)
     if flags == 1:
-        p+=f
-        inc = slice_int(bin, p)
-        p+=1
-        for i in range(0, inc):
-            p+=36
-            s = slice_int(bin,p)
-            p+=1
-            p += s + 4
-        ouc = slice_int(bin, p)
-        p+=1
-        for o in range(0, ouc):
-            p+=8
-            s = slice_int(bin,p)
-            p+=1
-            p += s
-        bin = bin[:4] + bin[6:p] + bin[-4:]
-    txid = sha256(sha256(bin).digest()).digest()[::-1].hex()
+        s = p
+        p, _inputs = inputs(tx, p)
+        e, _outputs = outputs(tx, p)
+        _io = (s, e-s)
+        tx = sb(tx, _version, 0) + sb(tx, _io, 0) + sb(tx, _locktime, 0)
+    txid = sha256(sha256(tx).digest()).digest()[::-1].hex()
     return txid
 
 #Raw Legacy
@@ -62,7 +80,7 @@ t1 = ('0200000000010100ff121dd31ead0f06e3014d9192be8485afd6459e36b09179'
       'f5ca9788e60afafa1e1bcbf93e51529defa48317ad83e069dd012103adc58245'
       'cf28406af0ef5cc24b8afba7f1be6c72f279b642d85c48798685f86200000000')
 
-# **UPDATE** Raw Segwit with flags and tx_witnesses stripped      
+#Raw Segwit with flags and tx_witnesses stripped manually
 t2 = ('02000000'  '0100ff121dd31ead0f06e3014d9192be8485afd6459e36b09179'
       'd8c372c1c494e20000000000fdffffff013ba3bf070000000017a914051877a0'
       'cc43165e48975c1e62bdef3b6c942a3887'                    '00000000')
@@ -78,4 +96,3 @@ print(f"t0: {txid(t0)}\nt1: {txid(t1)}\nt2: {txid(t2)}")
 # Correct
 # t0: cb33472bcaed59c66fae30d7802b6ea2ca97dc33c6aad76ce2e553b1b4a4e017
 # t1: d360581ee248be29da9636b3d2e9470d8852de1afcf3c3644770c1005d415b30
-

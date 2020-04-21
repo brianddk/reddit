@@ -35,7 +35,7 @@ fw = client.features
 fw_min = min_version[fw.model]
 py_min = (3,6,0)
 tl_min = [0,12,0]
-if (fw_min > (fw.major_version, fw.minor_version,fw.patch_version) or 
+if (fw_min > (fw.major_version, fw.minor_version,fw.patch_version) or
     tl_min > [int(i) for i in lib_version.split('.')] or py_min > py_ver):
     m = "Requires at least Python rev {}, trezorlib rev {}, and FW rev {}"
     print(m.format(py_min, tl_min, fw_min))
@@ -45,21 +45,24 @@ w3 = Web3()
 address_n = tools.parse_path(address)
 from_address = ethereum.get_address(client, address_n)
 
-min_abi = [
-    {
-        "name": "transfer",
-        "type": "function",
-        "constant": False,
-        "inputs": [
-            {"name": "_to", "type": "address"},
-            {"name": "_value", "type": "uint256"},
-        ],
-        "outputs": [{"name": "", "type": "bool"}],
-    }
-]
-contract = w3.eth.contract(address=token_address, abi=min_abi)
-data = contract.encodeABI("transfer", [to_address, amount])
-data = bytes.fromhex(data[2:])
+if token_address: #ERC20 KungFu
+    min_abi = [
+        {
+            "name": "transfer",
+            "type": "function",
+            "constant": False,
+            "inputs": [
+                {"name": "_to", "type": "address"},
+                {"name": "_value", "type": "uint256"},
+            ],
+            "outputs": [{"name": "", "type": "bool"}],
+        }
+    ]
+    contract = w3.eth.contract(address=token_address, abi=min_abi)
+    data = contract.encodeABI("transfer", [to_address, amount])
+    data = bytes.fromhex(data[2:])
+    to_address = token_address
+    amount     = 0
 
 sig = ethereum.sign_tx(
     client,
@@ -67,8 +70,8 @@ sig = ethereum.sign_tx(
     nonce=nonce,
     gas_price=gas_price,
     gas_limit=gas_limit,
-    to=token_address,
-    value=0,
+    to=to_address,
+    value=amount,
     data=data,
     chain_id=chain_id,
 )
@@ -76,4 +79,21 @@ sig = ethereum.sign_tx(
 to = bytes.fromhex(to_address[2:])
 transaction = rlp_encode((nonce, gas_price, gas_limit, to, amount, data) + sig)
 print(f'{{"hex": "0x{transaction.hex()}"}}')
-print(sha256(sha256(transaction).digest()).hexdigest())
+
+"""
+txn_id = 0xdcaf3eba690a3cdbad8c2926a8f5a95cd20003c5ba2aace91d8c5fe8048e395b
+https://etherscan.io/getRawTx?tx=${txn_id}
+
+# trezorctl ethereum sign-tx                         \
+  --chain-id 1                                       \
+  --address m/44'/60'/0'/0/0                         \
+  --gas-limit 200000                                 \
+  --gas-price 5000000000                             \
+  --nonce 11                                         \
+  --token 0xa74476443119A942dE498590Fe1f2454d7D4aC0d \
+  0xA6ABB480640d6D27D2FB314196D94463ceDcB31e 5000000000000000
+
+txn_hex = {previous_output}
+https://www.ethereumdecoder.com/?search=${txn_hex}
+
+"""
