@@ -5,11 +5,14 @@
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 
-from requests import get
+from requests import Request, Session
 from re import findall
 from time import sleep
 from json import dumps
+from os import isatty
+from sys import stdin
 
+session = Session()
 cache = {}
 def get_bal(coin):
     uri = coin['uri'].format(**coin)
@@ -17,11 +20,12 @@ def get_bal(coin):
     key = coin['key'].format(**coin)
     if uri not in cache.keys():
         # sleep(1/7)
-        r = get(uri)
-        if not r.ok: 
-            print(uri)
+        prep = Request('GET', uri).prepare()
+        prep.headers.clear() # etherscan hates headers
+        r = session.send(prep)
+        if not r.ok:
             return r
-        cache[uri] = r.json()        
+        cache[uri] = r.json()
     j = cache[uri]
     for node in key.split('.'):
         if '*' in node:
@@ -30,6 +34,9 @@ def get_bal(coin):
                 if node[key] == test:
                     j = node
                     break
+        elif '#' in node:
+            _, i = node.split('#')
+            j = j[int(i)]
         else:
             j = j[node]
     return float(j) / coin['div'] - coin['dust']
@@ -124,7 +131,7 @@ tipjar = dict(
         addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
         uri  = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
         key  = "data.{addr}.layer_2.erc_20.*:token_symbol:AMB.balance_approximate",
-        dust = 0,
+        dust = 0.1,
         div  = 1
     ),
     dai = dict(
@@ -141,10 +148,50 @@ tipjar = dict(
         dust = 0,
         div  = 1
     ),
+    rob_60_0 = dict(
+        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b,0xF7A1009746850D1581AB8b4A87bf5810775925fe",
+        uri  = "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address={addr}&tag=latest&apikey={apikey}",
+        key  = "result.#0.balance",
+        dust = 1,
+        div  = 10**18
+    ),
+    rob_60_1 = dict(
+        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b,0xF7A1009746850D1581AB8b4A87bf5810775925fe",
+        uri  = "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address={addr}&tag=latest&apikey={apikey}",
+        key  = "result.#1.balance",
+        dust = 0,
+        div  = 10**18
+    ),
 )
 
+if isatty(stdin.fileno()):
+    apikey = False
+else:
+    apikey = stdin.read().strip()
+
 for coin in tipjar.keys():
-    bal = get_bal(tipjar[coin])
+    if 'apikey' in tipjar[coin]['uri']:
+        if apikey:
+            tipjar[coin].update(apikey = apikey)
+        else:
+            continue
+    bal  = get_bal(tipjar[coin])
     addr = tipjar[coin]['addr']
-    # if True: print(f"{coin:10}: {bal:,.8f} {addr}")
-    if bal: print(f"{coin:10}: {bal:,.8f} {addr}")
+    lbl  = coin.split('_')[0]
+    # if True: print(f"{lbl:10}: {bal:,.8f} {addr}")
+    if bal: print(f"{lbl:8}: {bal:,.8f} {addr}")
+
+"""
+-----BEGIN PGP MESSAGE-----
+
+hQEMAxknaFN8ZgFHAQf/cUh/rEF1LgmJO8nS0wQtca1SU0LLElbkd2saxSw8nFaZ
+FqKeQMgCdZO65wSpSJp+LrzZaOOAFeHEgJoFlhU042Q/Im2bSWcYRW3dGOJn1GET
+Y1VS0plr8D3Fe4mA0PCrPRd5qN7POi9YEbWU6bFUtcLXN2/Ynk8sa/fn8kLEFDkx
+XXaK+hSghUuCcjrjBo+gV37iibtCO6PAIAA6Ay7HqGduln1IkiJ+0LQ2RC1sE6SI
+V1FPl6LommliCyuksygwCfFkG7P6RtWLrvPcC/13UYBFJSE77XR7ainqeekwW8m6
+8VRcoFQYVOibXJo77Mk5KI/lrL6fch3PuMgIfOlFFdJfAZUCH4TQx72rGBt5d0g3
+ra+DxLAlQRadY1Gy8QiC87Ek5ehcANw1CNSRDHsuZjn6fSueRZH8NX0ZKiVh270I
+8woKA3QC4lqRW8seymWDpaa30ASgtYBjv9t6kmvamSA=
+=D6nY
+-----END PGP MESSAGE-----
+"""

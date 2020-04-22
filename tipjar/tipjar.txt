@@ -1,9 +1,21 @@
+Please leave a tip.
+
 BTC:         3AAzK4Xbu8PTM8AD3fDnmjdNkXkmu6PS7R
 BTC-bech32:  bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 ETH/BAT/DAI: 0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b
 LTC:         MKcAge42cX6WZnnPfFGJAxReUYZUbsi6t3
 LTC-bech32:  ltc1q5uucgx9f8n70nq7jmjy03rpg84cm4tm70z5rz6
 BCH-cashadr: qqz77k4rqar3uppj8k28de06narwkqaamcf624p8zl
+
+If your broke, just leave some Testnet Coins to show you were here.
+
+BTC-regtest: mpaMBuoJ7ZiiJhmRZVvDT3JPncZV7XTeyy
+BTC-regtest: 2N1bhQ2Cp8QKt88ds9udWE1TGX89cebNMRW
+BTC-regtest: tb1qr3lzhp555lzxecjrae2vsl7mtnherxnau5tfe5
+BCH-testnet: bchtest:qp346ld04gnll2n3u2zr2uvy8slrpkagvvy7rdrmev
+LTC-testnet: mpaMBuoJ7ZiiJhmRZVvDT3JPncZV7XTeyy
+LTC-testnet: QUxTX3549WNyGKPun1fXJhthfWbSSKWxaL
+ETH-Robsten: 0xF7A1009746850D1581AB8b4A87bf5810775925fe
 
 Tippin.me Page:      https://tippin.me/@dkbriand
 Tallyco.in Page:     https://tallyco.in/dkbriand/

@@ -4,7 +4,7 @@
 # [repo]    github.com/brianddk/reddit/blob/master/python/erc20_offl_txn.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
-# [req]     pip3 install trezor
+# [req]     pip3 install trezor[ethereum]
 
 from trezorlib import tools, ui, ethereum
 from trezorlib import MINIMUM_FIRMWARE_VERSION as min_version
@@ -28,6 +28,7 @@ token_address   = "0xa74476443119A942dE498590Fe1f2454d7D4aC0d" #EIP-55
 to_address      = "0xA6ABB480640d6D27D2FB314196D94463ceDcB31e" #EIP-55
 amount          = 5000000000000000
 
+# Nothing changes below here
 device = get_transport()
 client = TrezorClient(transport=device, ui=ui.ClickUI())
 
