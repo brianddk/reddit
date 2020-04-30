@@ -21,7 +21,6 @@ For even lower fees you could ask your parents or guardians to KYC through Binan
 For those with guardians or parents that would not agree to KYC for you, here are some non-KYC options, though the fees are much (much) higher than 2%.
 
 * [P2P exchanges (e.g., LocalBitcoins, Bisq, HodlHodl, Paxful, etc.,)](https://new.reddit.com/r/Bitcoin/comments/dyclf8/list_of_bitcoin_persontoperson_p2p_bitcoin/)
-* [Purse.io/earn](https://purse.io/earn/btc) (shop Amazon for BTC, must be 13yo).
 * [Mycelium Local Trader](https://mycelium.com/lt/help.html)
 * [Meetup.com - Bitcoin](https://www.meetup.com/topics/bitcoin/) or any meetup you can find.  Ask (discretely) to buy BTC for cash after the meeting.
 * Switch to [Brave Browser](https://brave.com/bri541) ^(referral) and get small amounts of cryptocurrency while you surf, but you can't cash out till your 18.

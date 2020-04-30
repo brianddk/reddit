@@ -14,9 +14,9 @@ from sys import stdin
 
 session = Session()
 cache = {}
-def get_bal(coin):
+def get_bal(coin, showdust = False):
     uri = coin['uri'].format(**coin)
-    coin['addr'] = coin['addr'].lower()
+    coin['_addr'] = coin['addr'].lower()
     key = coin['key'].format(**coin)
     if uri not in cache.keys():
         # sleep(1/7)
@@ -39,6 +39,7 @@ def get_bal(coin):
             j = j[int(i)]
         else:
             j = j[node]
+    coin['dust'] = 0 if showdust else coin['dust']
     return float(j) / coin['div'] - coin['dust']
 
 tipjar = dict(
@@ -91,6 +92,13 @@ tipjar = dict(
         dust = 40.0,
         div  = 1
     ),
+    # xrp = dict(
+        # addr = "rEXJQNj9frFgG3Wk3smqGFVdMUX53c7Fw4",
+        # uri  = "https://api.blockchair.com/ripple/raw/account/{addr}",
+        # key  = "data.{addr}.account.account_data.Balance",
+        # dust = 0,
+        # div  = 10**6
+    # ),
     tbch = dict(
         addr = "bchtest:qp346ld04gnll2n3u2zr2uvy8slrpkagvvy7rdrmev",
         conv = "mpaMBuoJ7ZiiJhmRZVvDT3JPncZV7XTeyy",
@@ -114,11 +122,11 @@ tipjar = dict(
         div  = 1
     ),
     eth = dict(
-        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
-        uri  = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
-        key  = "data.{addr}.address.balance",
-        dust = 0.00947497,
-        div  = 10**18
+        addr  = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
+        uri   = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
+        key   = "data.{_addr}.address.balance",
+        dust  = 0.00947497,
+        div   = 10**18
     ),
     tbtc_84 = dict(
         addr = "tb1qr3lzhp555lzxecjrae2vsl7mtnherxnau5tfe5",
@@ -128,39 +136,46 @@ tipjar = dict(
         div  = 1
     ),
     amb = dict(
-        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
-        uri  = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
-        key  = "data.{addr}.layer_2.erc_20.*:token_symbol:AMB.balance_approximate",
-        dust = 0.1,
-        div  = 1
+        addr  = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
+        uri   = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
+        key   = "data.{_addr}.layer_2.erc_20.*:token_symbol:AMB.balance_approximate",
+        dust  = 0.1,
+        div   = 1
     ),
     dai = dict(
-        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
-        uri  = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
-        key  = "data.{addr}.layer_2.erc_20.*:token_symbol:DAI.balance_approximate",
-        dust = 0,
-        div  = 1
+        addr  = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
+        uri   = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
+        key   = "data.{_addr}.layer_2.erc_20.*:token_symbol:DAI.balance_approximate",
+        dust  = 0,
+        div   = 1
     ),
     bat = dict(
-        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
-        uri  = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
-        key  = "data.{addr}.layer_2.erc_20.*:token_symbol:BAT.balance_approximate",
-        dust = 0,
-        div  = 1
+        addr  = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b",
+        uri   = "https://api.blockchair.com/ethereum/dashboards/address/{addr}?erc_20=true",
+        key   = "data.{_addr}.layer_2.erc_20.*:token_symbol:BAT.balance_approximate",
+        dust  = 0,
+        div   = 1
     ),
     rob_60_0 = dict(
-        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b,0xF7A1009746850D1581AB8b4A87bf5810775925fe",
-        uri  = "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address={addr}&tag=latest&apikey={apikey}",
-        key  = "result.#0.balance",
-        dust = 1,
-        div  = 10**18
+        addr  = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b,0xF7A1009746850D1581AB8b4A87bf5810775925fe",
+        uri   = "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address={addr}&tag=latest&apikey={apikey}",
+        key   = "result.#0.balance",
+        dust  = 1,
+        div   = 10**18
     ),
     rob_60_1 = dict(
-        addr = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b,0xF7A1009746850D1581AB8b4A87bf5810775925fe",
-        uri  = "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address={addr}&tag=latest&apikey={apikey}",
-        key  = "result.#1.balance",
-        dust = 0,
-        div  = 10**18
+        addr  = "0xBc72A79357Ff7A59265725ECB1A9bFa59330DB4b,0xF7A1009746850D1581AB8b4A87bf5810775925fe",
+        uri   = "https://api-ropsten.etherscan.io/api?module=account&action=balancemulti&address={addr}&tag=latest&apikey={apikey}",
+        key   = "result.#1.balance",
+        dust  = 0,
+        div   = 10**18
+    ),
+    xlm = dict(
+        addr = "GDXJRFK4IO3EMOITZSHE7B2HHLR3RSDRBYF2P2PDQ6AKGZNFVALC2PEO",
+        uri  = "https://horizon.stellar.org/accounts/{addr}",
+        key  = "balances.*:asset_type:native.balance",
+        dust = 3.00096,
+        div  = 1
     ),
 )
 
@@ -169,20 +184,24 @@ if isatty(stdin.fileno()):
 else:
     apikey = stdin.read().strip()
 
+# DEBUG = True
+DEBUG = False
+
 for coin in tipjar.keys():
     if 'apikey' in tipjar[coin]['uri']:
         if apikey:
             tipjar[coin].update(apikey = apikey)
         else:
             continue
-    bal  = get_bal(tipjar[coin])
+    bal  = get_bal(tipjar[coin], showdust = DEBUG)
     addr = tipjar[coin]['addr']
     lbl  = coin.split('_')[0]
-    # if True: print(f"{lbl:10}: {bal:,.8f} {addr}")
-    if bal: print(f"{lbl:8}: {bal:,.8f} {addr}")
+    if bal or DEBUG: print(f"{lbl:8}: {bal:,.8f} {addr}")
 
 """
 -----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+Comment: gpg2 --decrypt < tipjar.py 2>NUL | tipjar.py
 
 hQEMAxknaFN8ZgFHAQf/cUh/rEF1LgmJO8nS0wQtca1SU0LLElbkd2saxSw8nFaZ
 FqKeQMgCdZO65wSpSJp+LrzZaOOAFeHEgJoFlhU042Q/Im2bSWcYRW3dGOJn1GET

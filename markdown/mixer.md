@@ -8,3 +8,5 @@ Well "good" is relative.
 JoinMarket or Wasabi are probably the "best".  Whirlpool is a lot easier.  ChipMixer is the easiest but its custodial (\*hiss\*).
 
 Also, you can offer liquidity on JoinMarket making your mixes free, or even (ever so slightly) profitable.
+
+Alternatively you can use BTC-LN (Lightning) as a sort of "poor mans mixer", or move coins to XMR through an anon exchange like FixedFloat, but the premium is steep
