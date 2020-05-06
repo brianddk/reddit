@@ -25,8 +25,10 @@ difficulty = findall('Difficulty:.*?<span>([0-9,.]+)</span>', content)[-1]
 hashrate = float(hashrate.replace(",","_"))
 difficulty = float(difficulty.replace(",","_"))
 
-d_msg = calc_msg(difficulty * 2**32)
+diff = difficulty * 2**32
+d_msg = calc_msg(diff)
 # h_msg = calc_msg(hashrate * 60 * 10)
 
 print(f"difficulty: {d_msg}")
+print(f"hashes: {diff:,.2f}")
 # print(f"hashrate: {h_msg}")
