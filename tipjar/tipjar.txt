@@ -7,15 +7,17 @@ LTC:         MKcAge42cX6WZnnPfFGJAxReUYZUbsi6t3
 LTC-bech32:  ltc1q5uucgx9f8n70nq7jmjy03rpg84cm4tm70z5rz6
 BCH-cashadr: qqz77k4rqar3uppj8k28de06narwkqaamcf624p8zl
 
-If your broke, just leave some Testnet Coins to show you were here.
+If your broke, just leave some Testnet Coins to show you were here.  If you have MOON or BRICK 
+reddit tokens, those are on Rinkey as an FYI.  Just add a comment below and I can help you move them ;)
 
-BTC-regtest: mpaMBuoJ7ZiiJhmRZVvDT3JPncZV7XTeyy
-BTC-regtest: 2N1bhQ2Cp8QKt88ds9udWE1TGX89cebNMRW
-BTC-regtest: tb1qr3lzhp555lzxecjrae2vsl7mtnherxnau5tfe5
+BTC-testnet: mpaMBuoJ7ZiiJhmRZVvDT3JPncZV7XTeyy
+BTC-testnet: 2N1bhQ2Cp8QKt88ds9udWE1TGX89cebNMRW
+BTC-testnet: tb1qr3lzhp555lzxecjrae2vsl7mtnherxnau5tfe5
 BCH-testnet: bchtest:qp346ld04gnll2n3u2zr2uvy8slrpkagvvy7rdrmev
 LTC-testnet: mpaMBuoJ7ZiiJhmRZVvDT3JPncZV7XTeyy
 LTC-testnet: QUxTX3549WNyGKPun1fXJhthfWbSSKWxaL
 ETH-Robsten: 0xF7A1009746850D1581AB8b4A87bf5810775925fe
+ETH-Rinkeby: 0x042b19E19e857dB8B28939bA0F94920aca83d2f9
 
 Tippin.me Page:      https://tippin.me/@dkbriand
 Tallyco.in Page:     https://tallyco.in/dkbriand/
@@ -24,10 +26,13 @@ u/chaintip (reddit): userid: brianddk
 u/tippr (reddit):    userid: brianddk
 u/lntipbot (reddit): userid: brianddk
 
-Brave referral:      https://brave.com/rgp067
-Coinbase referral:   https://www.coinbase.com/join/51d3b6d15292df353a000008
-Coinbase earn XLM:   https://coinbase.com/earn/xlm/invite/hc8jwk96
-Coinbase earn EOS:   https://coinbase.com/earn/eos/invite/6mtrf1w4
-Coinbase earn OXT:   https://coinbase.com/earn/oxt/invite/4txq1d3n
-Binance referral:    https://www.binance.com/?ref=11716666
-OpenNode referral:   https://app.opennode.co/join/8fdbd02b-361b-4be9-8937-5079d1398002
+Brave referral:       https://brave.com/bri541
+Trezor referral:      https://shop.trezor.io/?offer_id=10&aff_id=4623
+CryptoSteel referral: https://shop.trezor.io/product/cryptosteel?offer_id=23&aff_id=4623
+Coinbase referral:    https://www.coinbase.com/join/51d3b6d15292df353a000008
+Coinbase earn XLM:    https://coinbase.com/earn/xlm/invite/hc8jwk96
+Coinbase earn EOS:    https://coinbase.com/earn/eos/invite/6mtrf1w4
+Coinbase earn OXT:    https://coinbase.com/earn/oxt/invite/4txq1d3n
+Binance referral:     https://www.binance.com/?ref=11716666
+CashApp referral:     https://cash.app/app/VGDKRBT
+OpenNode referral:    https://app.opennode.co/join/8fdbd02b-361b-4be9-8937-5079d1398002
