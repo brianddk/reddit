@@ -4,7 +4,7 @@
 # [repo]    github.com/brianddk/reddit/blob/master/python/bad_address.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
-# [req]     pip3 install trezor[ethereum]
+# [req]     pip3 pycoin mnemonic
 
 from mnemonic import Mnemonic
 from pycoin.symbols.btc import network as btc
