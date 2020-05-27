@@ -12,11 +12,10 @@ from requests import get
 
 URL = "https://paste.debian.net/plain/1148565"
 
-if __name__ == "__main__":
-    resp = get(URL)
-    msg, sigs = resp.text.split('"')[1:]
-    sigs = sigs.split('\n')[4:-1]
-    for sig in sigs:
-        addr, sig = sig.split()
-        test = "passed" if btc.msg.verify(addr, sig, msg) else "FAILED"
-        print(test, addr)
+resp = get(URL)
+msg, sigs = resp.text.split('"')[1:]
+sigs = sigs.split('\n')[4:-1]
+for sig in sigs:
+    addr, sig = sig.split()
+    test = "passed" if btc.msg.verify(addr, sig, msg) else "FAILED"
+    print(test, addr)
