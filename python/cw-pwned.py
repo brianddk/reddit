@@ -5,7 +5,7 @@
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 # [ref]     reddit.com/r/CryptoCurrency/comments/gqrf11/_/frxsy8b
-# [req]     pip3 pycoin requests
+# [req]     pip3 install pycoin requests
 
 from pycoin.symbols.btc import network as btc
 from requests import get
