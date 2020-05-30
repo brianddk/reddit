@@ -22,9 +22,8 @@ ACCT84 = '84H/0H/0H'
 HW49 = dict(bip32_pub_prefix_hex="049d7cb2", bip32_prv_prefix_hex="049d7878")
 HW84 = dict(bip32_pub_prefix_hex="04b24746", bip32_prv_prefix_hex="04b2430c")
 
-SSS  = generate_mnemonics(1, [(1,1)], bytes.fromhex(MSEC), PP.encode(), 0)
-
 # Can be done MS -> shamir-mnemonic or shamir-mnemonic -> MS
+SSS  = generate_mnemonics(1, [(1,1)], bytes.fromhex(MSEC), PP.encode(), 0)
 #SSS = [["armed husband academic academic document aquatic wisdom " +
 #        "pleasure lilac response axle parking shaft crazy cargo " +
 #        "dish diet dramatic together unfold"]]
