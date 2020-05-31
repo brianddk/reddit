@@ -6,15 +6,15 @@
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 # [ref]     reddit.com/r/TREZOR/comments/gswh86/_/fs91czu/
 # [req]     pip3 install pycoin mnemonic shamir_mnemonic
+# [usage]   python slip39.py Pa55w0rd 0660cc198330660cc198330660cc1983
+# [usage]   python slip39.py Pa55w0rd "library corner ... medal aunt"
 
 from mnemonic import Mnemonic
 from pycoin.symbols.btc import network as btc
 from pycoin.networks.bitcoinish import create_bitcoinish_network as btcnet
 from shamir_mnemonic import combine_mnemonics, generate_mnemonics
-
-# Nonsense Passphrase and Master-Seed
-PP     = "Pa55w0rd"
-MSEC   = "0660cc198330660cc198330660cc1983" # SLIP-14 entryopy for fun
+from sys import argv, exit
+from string import hexdigits
 
 ACCT44 = '44H/0H/0H'
 ACCT49 = '49H/0H/0H'
@@ -41,18 +41,26 @@ def print_keys(seed, path, kw):
     xprv = acct.hwif(as_private=True)
     print(f"\n{xprv}\n{xpub}\n{addr}")
 
-def main(seed):
-    print(seed.hex())
-    print(SSS[-1][-1])
+def main(seed, sss, passphrase):
+    print("Passphrase:", f'"{passphrase}"')
+    print("Master Seed:", seed.hex())
+    print(sss[-1][-1])
     print_keys(seed, ACCT44, None)
     print_keys(seed, ACCT49, HW49)
     print_keys(seed, ACCT84, HW84)
 
 if __name__ == "__main__":
-    # Can be done MS -> shamir-mnemonic or shamir-mnemonic -> MS
-    SSS  = generate_mnemonics(1, [(1,1)], bytes.fromhex(MSEC), PP.encode(), 0)
-    # SSS = [["award upgrade academic academic axle mama mason "+
-    #         "walnut invasion security episode prevent scene "+
-    #         "lobe furl exact friar oven judicial improve"]]
-    seed = combine_mnemonics(SSS[-1],PP.encode())
-    main(seed)
+    if len(argv) < 3:
+        print(f"Usage:\t{argv[0]}",
+              "<passphrase> <master_seed | shamir-mnemonic>")
+        print('\tHint: Use "" as your passphrase if you have none')
+    else:
+        passphrase = argv[1]
+        args = " ".join(argv[2:]).replace("0x","").strip()
+        if all(c in hexdigits for c in args):
+            sss = generate_mnemonics(1, [(1,1)], bytes.fromhex(args),
+                                     passphrase.encode(), 0)
+        else:
+            sss = [[args]]
+        seed = combine_mnemonics(sss[-1],passphrase.encode())
+        main(seed, sss, passphrase)
