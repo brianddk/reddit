@@ -4,7 +4,7 @@
 # [repo]    github.com/brianddk/reddit/blob/master/python/btc-herder.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  https://github.com/brianddk/reddit/blob/master/README.md
-# [ref]     reddit.com/r/Bitcoin/submit?draft=tbd
+# [ref]     https://www.reddit.com/r/Bitcoin/comments/isf6xm/
 # [req]     pip3 install dnspython
 # [req]     https://bitcoincore.org/en/download/
 # [req]     https://packages.msys2.org/base/openbsd-netcat
