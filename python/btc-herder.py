@@ -28,6 +28,7 @@ from os.path import isfile
 from os import environ
 
 # You will likely want to change some of these
+RESTART     = True
 CMD_TIMEOUT = 5
 MIN_CONN    = 300 # 5 min
 # TESTNET     = True
@@ -47,19 +48,19 @@ ipv4_seeds = dict(
         "seed.bitcoin.sprovoost.nl",
         "dnsseed.emzy.de",
         "seed.bitcoin.wiz.biz",
-        "seed.bitnodes.io"
+        "seed.bitnodes.io",
     ],
     testnet = [
         "testnet-seed.bitcoin.jonasschnelli.ch",
         "seed.tbtc.petertodd.org",
         "seed.testnet.bitcoin.sprovoost.nl",
-        "testnet-seed.bluematt.me"
+        "testnet-seed.bluematt.me",
     ])
 
 # From bitnodes.io
 onion_seeds = dict(
     mainnet = ["seed.bitnodes.io"],
-    testnet = []
+    testnet = [],
     )
 
 # Bitnodes and some friends, feel free to remove
@@ -69,14 +70,14 @@ favorite_nodes = dict(
         "88.99.167.186:8333",
         "[2a01:4f8:10a:37ee::2]:8333",
         "6zynxbbupfmnvc3g.onion:8333",
-        "217.104.4.71:8333"
+        "217.104.4.71:8333",
     ],
     testnet = [
         "88.99.167.175:18333",
         "88.99.167.186:18333",
         "[2a01:4f8:10a:37ee::2]:18333",
         "6zynxbbupfmnvc3g.onion:18333",
-        "217.104.4.71:18333"
+        "217.104.4.71:18333",
     ]
     )
 
@@ -93,6 +94,7 @@ def testport(addr, port, tor=False):
     wo_proxy = nc_cli + " -v -n -z"
     w_proxy  = nc_cli + " -v -n -z -X 5 -x 127.0.0.1:9050"
     cmd = w_proxy if tor else wo_proxy
+    # if tor: print(f"Testing {addr}:{port}") # debug
     try:
         cp = run(cmd.split(), capture_output=True, text=True, timeout=CMD_TIMEOUT)
         rtn = True
@@ -140,16 +142,28 @@ def addnode(node, testnet=TESTNET):
     cmd  = ["addnode", node, "add"]
     cp = run_cmd(exe + args + cmd)
 
-def read_json(testnet=TESTNET):
+def read_json(restart=False, testnet=TESTNET):
+    if restart: print("Restarting")
     net = "testnet_" if testnet else "mainnet_"
-    with open(net + "nodes.json", 'r') as file:
-        nodes = load(file)
+    name = net + "nodes.json"
+    if isfile(name):
+        with open(name, 'r') as file:
+            nodes = load(file)
+    else:
+        return dict()
     for addr,node in nodes.items():
         node['conntime'] = 0
-        node['banned'] = False
-        node['added'] = False
-        node['tried'] = 0
-        nodes[addr] = node
+        if restart:
+            port = node.get('port', 0)
+            if node.get('added', False):
+                addnode(f"{addr}:{port}")
+            if node.get('banned', False):
+                bannode(f"{addr}:{port}")                
+        else:
+            node['banned'] = False
+            node['added'] = False
+            node['tried'] = 0
+            nodes[addr] = node
     return nodes
 
 def write_json(nodes, testnet=TESTNET):
@@ -204,10 +218,14 @@ def updategpi(nodes, testnet=TESTNET):
         nodes = lognode(addr, entry, nodes)
     return nodes
 
-def ban_stale(nodes):
+def ban_stale(nodes, testnet=TESTNET):
     for addr,node in nodes.items():
+        port = node.get('port', 0)
+        key   = 'testnet' if testnet else 'mainnet'
+        if f"{addr}:{port}" in favorite_nodes[key]:
+            continue
         if (
-            node.get('port', 0) and
+            port and
             not node.get('inbound', True) and         # inbound == False
             not node.get('banned', False) and         # banned == False
             MIN_CONN - time() + node['conntime'] < 0
@@ -366,9 +384,13 @@ nc_cli, btc_cli = get_environ()
 glbl_d = dict(cntr = 0)
 glbl_list = list()
 glbl = dict(curr = dict(reachable=dict(), relaytxes=dict(), lowfee=dict()))
-# nodes = read_json()
-nodes = reset_all()
+
+nodes = read_json(restart=RESTART)
+
+# reset_all()
+# restore_favorites()
 # exit()
+
 start = time()
 cur_prog = (0, 0, 0, 0)
 noadd = 0
@@ -390,9 +412,9 @@ try:
             noadd += 1
         secs = round(time() - start)
         print(noadd, cur_prog, secs)
-        if noadd > 0:
+        if (noadd % 11) == 0:
             probeport(nodes, noadd)
-        if noadd > 3:
+        if (noadd % 7) == 0:
             nodes = seed_onion(nodes)
         sac = choice(list(nodes.keys()))
         write_json(nodes)
@@ -402,6 +424,7 @@ try:
 except Exception as e:
     print(e)
 finally:
+    print("Exiting")
     write_json(nodes)
     reset_all()
     restore_favorites()
