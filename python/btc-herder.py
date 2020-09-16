@@ -68,9 +68,9 @@ favorite_nodes = dict(
     mainnet = [
         "88.99.167.175:8333",
         "88.99.167.186:8333",
-        "[2a01:4f8:10a:37ee::2]:8333",
-        "6zynxbbupfmnvc3g.onion:8333",
-        "217.104.4.71:8333",
+        # "[2a01:4f8:10a:37ee::2]:8333",
+        # "6zynxbbupfmnvc3g.onion:8333",
+        # "217.104.4.71:8333",
     ],
     testnet = [
         "88.99.167.175:18333",
@@ -80,6 +80,17 @@ favorite_nodes = dict(
         "217.104.4.71:18333",
     ]
     )
+    
+low_fee_txns = [ 
+        "02000000000101374cd35d9f0518e3a48d597c194bc7d069e5ccbab6b"\
+        "34544fad813f83290237b0a00000000fdffffff02d007000000000000"\
+        "17a914bc0a0676cc13e67adce0d54d962e842c32d157ed878a7e01000"\
+        "00000001600147614a7c784d975c7cf607d438401302fda0117f10248"\
+        "30450221008d5e0b37ad9c707511d243335323e9f1b3c22bce1fada08"\
+        "9958f2d138ba24e7302202c3d69c9d66249092314d3578d237af09d4c"\
+        "15c29289782383857254de991588012103bb36ccf2bbca17e23af26a0"\
+        "8a872e6d984be29a390cd1cb021057c75178f39dc41e50900",
+    ]
 
 def run_cmd(cmd):
     for i in range(0, CMD_RETRY):
@@ -121,6 +132,13 @@ def getaddednodeinfo(testnet=TESTNET):
     cmd  = ["getaddednodeinfo"]
     cp = run_cmd(exe + args + cmd)
     return loads(cp.stdout)
+
+def sendrawtransaction(tx, testnet=TESTNET):
+    exe  = [btc_cli]
+    args = ["--testnet"] if testnet else []
+    cmd  = ["sendrawtransaction"]
+    cp = run_cmd(exe + args + cmd + [tx])
+    return cp.stdout
 
 def removeadded(node, testnet=TESTNET):
     exe  = [btc_cli]
@@ -202,7 +220,7 @@ def lognode(addr, entry, nodes):
         entry['best'] = nodes[addr].get('best', 0)
     nodes[addr] = entry
     nodes=sortnodes(nodes)
-    write_json(nodes)
+    # write_json(nodes) # debug - takes forever
     return nodes
 
 def updategpi(nodes, testnet=TESTNET):
@@ -237,7 +255,7 @@ def ban_stale(nodes, testnet=TESTNET):
             node['banned'] = True
             nodes[addr] = node
 
-    write_json(nodes)
+    # write_json(nodes)
     return nodes
 
 def seed(nodes, tor=False, testnet=TESTNET):
@@ -258,7 +276,7 @@ def seed(nodes, tor=False, testnet=TESTNET):
                 nodes[addr] = entry
                 # print(dumps({addr: entry}, indent=4)) # debug
 
-    write_json(nodes)
+    # write_json(nodes)
     return nodes
 
 def seed_ipv4(nodes):
@@ -380,6 +398,29 @@ def get_environ():
         print("Read the source Luke!  You must set BTC_CLI and NC_CLI enviroinment variables")
         exit(1)
 
+def logtime(msg, then): # debug
+    now = time()
+    print(msg, now-then)
+    return now
+        
+def print_prog(prog):
+    retry, known, open, connected, lowfee, runtime = prog
+    lf_pct  = round(100*lowfee/connected, 2)
+    covered = round(100*connected/open, 2)
+    h, m, s = runtime // (60*60), (runtime // 60) % 60, runtime % 60
+    msg = f"r:{retry:03d} k:{known:,} o:{open:,} c:{connected:,} l:{lowfee:,}, runtime:{h:.0f}:{m:02.0f}:{s:06.3f}, low-fee:{lf_pct:.2f}%, covered:{covered:.2f}%"
+    print(msg)
+    
+def sleep_tm(sec, tm):
+    sec = max(1, sec) - time() + tm
+    sec = max(0, sec)
+    if sec:
+        sleep(sec)
+
+def sendrawtxes():
+    for tx in low_fee_txns:
+        sendrawtransaction(tx)
+
 nc_cli, btc_cli = get_environ()
 glbl_d = dict(cntr = 0)
 glbl_list = list()
@@ -387,21 +428,29 @@ glbl = dict(curr = dict(reachable=dict(), relaytxes=dict(), lowfee=dict()))
 
 nodes = read_json(restart=RESTART)
 
+# sendrawtxes()
+# exit()
+
 # reset_all()
 # restore_favorites()
 # exit()
 
-start = time()
+tm = start = time()
 cur_prog = (0, 0, 0, 0)
 noadd = 0
 fnf = True
 try:
-    while fnf and noadd < 60:
+    while fnf and noadd < MIN_CONN:
         last_prog = cur_prog
         nodes = updategpi(nodes)
         nodes = ban_stale(nodes)
-        count = len(nodes)
-        nodes = seed_ipv4(nodes)
+        count = len(nodes)        
+        if (time() - tm) > CMD_TIMEOUT:
+            nag = True
+            tm = time()
+        else:
+            nag = False
+        if nag: nodes = seed_ipv4(nodes)
         delta = len(nodes) - count
         if delta > 0:
             addnodes(nodes)
@@ -410,16 +459,16 @@ try:
             noadd = 0
         else:
             noadd += 1
-        secs = round(time() - start)
-        print(noadd, cur_prog, secs)
-        if (noadd % 11) == 0:
-            probeport(nodes, noadd)
-        if (noadd % 7) == 0:
-            nodes = seed_onion(nodes)
-        sac = choice(list(nodes.keys()))
-        write_json(nodes)
+        secs = time() - start
+        if nag: print_prog((noadd,) + cur_prog + (secs,))
+        if nag: probeport(nodes, noadd)
+        if nag: nodes = seed_onion(nodes)
+        if nag: sendrawtxes()
+        if nag: write_json(nodes)
         fnf = not isfile(ABORT_FILE)
-        sleep(noadd+1)
+        # print(noadd, time() - tm, nag)
+        # sleep_tm(noadd, tm)
+        # tm = logtime("while fnf....:", tm) # debug
 
 except Exception as e:
     print(e)
