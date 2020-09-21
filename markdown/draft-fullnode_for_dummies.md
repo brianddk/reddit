@@ -18,6 +18,8 @@ One thing we left out in the level-0 exercise is encrypting your wallet.  It's e
 4. Choose `Encrypt Wallet` from the `Settings Menu`
 5. Enter your 8 word (or so) passphrase generated using the Diceware method
 
+![Wallet Encryption Dialog](/assets/encrypt.png)
+
 ### Tech Skill Level: 2 (enable pruning if needed)
 
 Though I said "300 GB of space isn't hard to come by", some times it actually is.  If space is an issue, a simple way to fix it is to tell bitcoin to simple take less space.  This is called "pruning" and can take that number from 300 GB down to below 5 GB.  If you can't find 5 GB, then you'll have to read ahead to level-3 to add USB storage.  But the good news is, enabling pruning is pretty easy, we just add another step to our working list:
@@ -29,6 +31,8 @@ Though I said "300 GB of space isn't hard to come by", some times it actually is
 5. Choose `Options` from the `Settings Menu`
 6. Choose `Prune block storage to:` and select the max size for the blocks to use
 7. Exit and restart the bitcoin application for the changes to take effect
+
+![Pruning Dialog](/assets/prune.png)
 
 Note, even setting this to 1 GB will still leave you with about a 4.5 GB install.  The blocks take up a lot of space, but the `chainstate` and other folders eat up at least 3.5 GB and they can't be pruned.  Also, be aware, to disable pruning requires you to perform the entire IBD again.  While pruned some other functions my be disabled as well, so just know that pruning does limit some functionality.
 
@@ -47,6 +51,8 @@ Although this is arguably something that should be done at level-0, some find th
 9. Launch the installed "Bitcoin Core" app and let it run overnight
 10. Do the wallet encryption steps here if you wish
 11. Do the optional pruning steps here if you wish
+
+![Certification Validation Windows](/assets/uac.png)
 
 Note: The certificate used to sign the current Bitcoin installer is only valid from March 2020 to March 2021.  After that point the thumbprint on the certificate will change.  This is by design and intentional.  If your reading this post after March 2021, then it is understood that the thumbprint has changed.
 
@@ -68,6 +74,8 @@ Once you decide on a drive, the tricky part will be to enable external storage. 
 10. Select `All Files` from the `Save as type` dropdown
 11. Click the `Save` button and overwrite the file if prompted
 12. Exit and restart the bitcoin application for the changes to take effect
+
+![Save As Dialog](/assets/usb.png)
 
 Now that you've reached this level of technical expertise, there are many new configuration options that you can begin to modify if you wish.  Most configuration data is contained in the `bitcoin.conf` file and learning how to maintain it is a key step for a node operator.
 
