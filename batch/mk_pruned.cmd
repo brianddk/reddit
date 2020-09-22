@@ -30,15 +30,6 @@ REM ################################################# MER
 REM ### No more edits should be needed below here ### MER
 REM ################################################# MER
 
-net session 2> NUL 1>&2
-if %errorlevel% equ 0 (
-  echo Administrator check passed
-) else (
-  echo Admin rights required for MKLINK command
-  echo You are not Administrator. Exiting...
-  goto:eof
-)
-
 set /a "pruned_mb=550"
 
 set mainnet=\
