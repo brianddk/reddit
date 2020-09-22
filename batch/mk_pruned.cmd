@@ -69,8 +69,8 @@ for /f %%I in ('dir /s /b /o:-n %full_blk%\blk*.dat') do (
   set blkdat=%%~nxI
   set revdat=!blkdat:blk=rev!
   if !sum! GTR !pruned_mb! (
-    mklink %pruned_blk%\!blkdat! %full_blk%\!blkdat!
-    mklink %pruned_blk%\!revdat! %full_blk%\!revdat!
+    echo.> %pruned_blk%\!blkdat!
+    echo.> %pruned_blk%\!revdat!
   ) else (
     copy %full_blk%\!blkdat! %pruned_blk%\!blkdat!
     copy %full_blk%\!revdat! %pruned_blk%\!revdat!
