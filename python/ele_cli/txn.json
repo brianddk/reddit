@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    {
+      "prevout_hash": "e294c4c172c3d87991b0369e45d6af8584be92914d01e3060fad1ed31d12ff00",
+      "prevout_n": 0,
+      "value_sats": 129999867
+    }
+  ],
+  "outputs": [
+    {
+      "address": "2MsiAgG5LVDmnmJUPnYaCeQnARWGbGSVnr3",
+      "value_sats": 10000000
+    },
+    {
+      "address": "tb1q9l0rk0gkgn73d0gc57qn3t3cwvucaj3h8wtrlu",
+      "value_sats": 20000000
+    },
+    {
+      "address": "tb1qejqxwzfld7zr6mf7ygqy5s5se5xq7vmt96jk9x",
+      "value_sats": 99999694
+    }
+  ]
+}
