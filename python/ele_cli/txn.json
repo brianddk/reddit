@@ -1,22 +1,29 @@
+//[rights]  Copyright 2020 brianddk at github https://github.com/brianddk
+//[license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
+//[repo]    github.com/brianddk/reddit/blob/master/python/ele_cli/txn.json
+//[ref]     reddit.com/r/TREZOR/comments/j4lp9g/
+//[btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
+//[tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
+//[req]     minify="$(grep -v "^//" file.json | tr -d '\n' | sed 's/ //g')"
 {
   "inputs": [
     {
       "prevout_hash": "e294c4c172c3d87991b0369e45d6af8584be92914d01e3060fad1ed31d12ff00",
-      "prevout_n": 0,
-      "value_sats": 129999867
+      "prevout_n":    0,
+      "value_sats":   129999867
     }
   ],
   "outputs": [
     {
-      "address": "2MsiAgG5LVDmnmJUPnYaCeQnARWGbGSVnr3",
+      "address":    "2MsiAgG5LVDmnmJUPnYaCeQnARWGbGSVnr3",
       "value_sats": 10000000
     },
     {
-      "address": "tb1q9l0rk0gkgn73d0gc57qn3t3cwvucaj3h8wtrlu",
+      "address":    "tb1q9l0rk0gkgn73d0gc57qn3t3cwvucaj3h8wtrlu",
       "value_sats": 20000000
     },
     {
-      "address": "tb1qejqxwzfld7zr6mf7ygqy5s5se5xq7vmt96jk9x",
+      "address":    "tb1qejqxwzfld7zr6mf7ygqy5s5se5xq7vmt96jk9x",
       "value_sats": 99999694
     }
   ]
