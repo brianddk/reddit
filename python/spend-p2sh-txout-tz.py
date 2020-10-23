@@ -114,10 +114,13 @@ def get_core_priv():
 SelectParams(coin.lower())
 
 # Make a private key with Trezor if you have one
-seckey = get_tz_priv(coin, path)
+# seckey = get_tz_priv(coin, path)
 
 # Otherwise pull a private key from Core
 # seckey = get_core_priv()
+
+# Or just hardcode it
+seckey = CBitcoinSecret('cQNjiPwYKMBr2oB3bWzf3rgBsu198xb8Nxxe51k6D3zVTA98L25N')
 
 print("wif", seckey)
 print("pubk", b2x(seckey.pub))
@@ -171,11 +174,14 @@ tx.nLockTime = nLockTime
 # replaces the scriptSig in the transaction being hashed with the script being
 # executed.
 sighash = SignatureHash(txin_redeemScript, tx, 0, SIGHASH_ALL)
+print("hash:", b2x(sighash))
+print(b2x(bytes([SIGHASH_ALL])))
 
 # Now sign it. We have to append the type of signature we want to the end, in
 # this case the usual SIGHASH_ALL.
 sig = seckey.sign(sighash) + bytes([SIGHASH_ALL])
 
+print("sig:", b2x(sig))
 # Set the scriptSig of our transaction input appropriately.
 txin.scriptSig = CScript([sig, txin_redeemScript])
 
