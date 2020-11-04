@@ -34,7 +34,6 @@ def get_priv():
     priv = randint(1, n-1)
     return bytes.fromhex(f"{priv:064x}")
     
-# You get this from Wallet info dialog
 for i in range(0, n):
     priv = get_priv()
     wif  = serialize_privkey(priv, True, '').replace(':', '')
