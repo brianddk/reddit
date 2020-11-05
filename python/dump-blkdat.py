@@ -4,7 +4,6 @@
 # [repo]    github.com/brianddk/reddit/blob/master/python/dump-blkdat.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
-# [txid]    e9c05a5f454d6bd10803eb20a8ba529bcf8d85f441b35ca7c8a4a67e26bdfa1a
 # [ref]     https://www.reddit.com/r/Bitcoin/comments/jor31w/
 
 from struct import unpack
