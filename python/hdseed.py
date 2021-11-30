@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # [rights]  Copyright 2021 brianddk at github https://github.com/brianddk
 # [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
-# [repo]    github.com/brianddk/reddit/blob/master/python/sqldump.py
+# [repo]    github.com/brianddk/reddit/blob/master/python/hdseed.py
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 # [req]     python -m pip install electrum
