@@ -9,7 +9,7 @@
 #    with open(r"C:\Windows\Temp\hdseed.py") as f: exec(f.read())
 # [note]    You can give parameters by doing a `seed=...` command
 #    on the Electrum console, or you can feed a commandline argument
-#    if running from the console
+#    if running from the an OS shell
 # [note]    The argument (via `seed=...` or command-arg) will accept a
 #    text string of hex, wif, xprv, or 12-word-mnemonic.
 # [note]    In the absence of an argument, a new BIP39-mnemonic will
