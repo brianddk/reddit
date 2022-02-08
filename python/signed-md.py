@@ -148,6 +148,8 @@ if __name__ == "__main__":
 7. Post doc on reddit
 8. Push doc to github
 9. Return to tipjar
+10. Web-Archive the reddit links.  There can be 6 endpoints: 
+  * `{ np, www }.reddit.com/{,r/${SubName}/comments}/${id}/{ , ${title} }/{ , .json}
 
 
 Samples
