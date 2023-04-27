@@ -3,6 +3,7 @@
 # [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
 # [repo]    github.com/brianddk/reddit/blob/master/python/dump_cj_keypool.py
 # [ref]     github.com/trezor/blockbook/issues/921
+# [ref]     reddit.com/r/TREZOR/comments/1311ekf/
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 # [req]     pip install bip-utils==2.7.0 trezor==0.13.5
@@ -68,7 +69,7 @@ def main() -> None:
     for acct in range(NUM_ACCOUNTS):
         s_path = cj_path.format(acct)
         n_path = parse_path(s_path)
-        stderr.write("Grabbing XPUB at {} approve may be required\n".format(s_path))
+        stderr.write("Grabbing XPUB at {} approval may be required\n".format(s_path))
         try:
             # Some paths need to be unlocked, others don't, lazy, so just try both ways
             xpub = btc.get_public_node(client, n=n_path, coin_name=COIN_NAME, unlock_path=[n_path[0]]).xpub
