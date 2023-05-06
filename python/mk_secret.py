@@ -131,4 +131,5 @@ def main():
     else:
         print(msg)
 
-main()
+if __name__ == "__main__":
+    main()
