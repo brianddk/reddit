@@ -3,7 +3,7 @@
 # [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
 # [repo]    github.com/brianddk/reddit/blob/master/python/slip-10-xmr-recovery.py
 # [ref]     github.com/satoshilabs/slips/blob/e9e52e8/slip-0010/testvectors.py
-# [ref]     reddit.com/r/TREZOR/comments/1345rkr/
+# [ref]     reddit.com/r/Monero/comments/140w2iu
 # [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 # [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 # [req]     pip install trezor==0.13.7 monero==1.1.1 ed25519==1.5
