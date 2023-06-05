@@ -26,6 +26,7 @@
 # See https://github.com/trezor/trezor-firmware/blob/fee0d70/tests/common.py#L37
 # See https://github.com/trezor/trezor-firmware/blob/fee0d70/tests/device_tests/monero/test_getaddress.py#L33
 # See https://github.com/trezor/trezor-firmware/blob/fee0d70/docs/misc/coins-bip44-paths.md
+# See https://github.com/ph4r05/monero-agent/blob/master/PoC.md#trezor-seeds
 
 ## TODO ##
 #
