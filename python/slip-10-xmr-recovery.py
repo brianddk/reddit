@@ -45,13 +45,14 @@ from mnemonic import Mnemonic
 from trezorlib.tools import parse_path
 import monero.seed
 
-VERSION=0.1
+VERSION=0.2
 privdev = 0x80000000
 # See https://github.com/satoshilabs/slips/blob/e9e52e8/slip-0014.md
-SLIP14 = "all all all all all all all all all all all all"
+YOUR_MNEMONIC = "all all all all all all all all all all all all"
+YOUR_PASSPHRASE = "hunter2"
 
 # See https://github.com/trezor/trezor-firmware/blob/fee0d70/tests/common.py#L37
-MNEMONIC12 = "alcohol woman abuse must during monitor noble actual mixed trade anger aisle"
+MNEMONIC12_TEST = "alcohol woman abuse must during monitor noble actual mixed trade anger aisle"
 
 
 def int_to_string(x, pad):
@@ -146,8 +147,8 @@ def get_keys(seedhex, derivationpath):
     return p,k
 
 
-def print_keys(derivation, mnemonic):
-    bip39_seed = Mnemonic("English").to_seed(mnemonic)
+def print_keys(derivation, mnemonic, passphrase = ""):
+    bip39_seed = Mnemonic("English").to_seed(mnemonic, passphrase)
     pub, priv = get_keys(bip39_seed.hex(), parse_path(derivation))
     seed = monero.seed.Seed(priv.hex())
     pub_hex = '12' + seed.public_spend_key() + seed.public_view_key()
@@ -157,7 +158,7 @@ def print_keys(derivation, mnemonic):
     print("BIP39 Seed:", bip39_seed.hex())
     print("SLIP10 Derivation:", derivation)
     print("SLIP10 Seed at Derivation:", priv.hex())
-    print("Monero Mnemonic:\n\t", seed.phrase)
+    print("Monero Mnemonic:\n    ", seed.phrase)
     print("Monero Address:", address)
     print("Monero Public Spend:", seed.public_spend_key())
     print("Monero Public View:", seed.public_view_key())
@@ -168,10 +169,10 @@ def print_keys(derivation, mnemonic):
 
 derivation = "m/44h/128h/0h"
 print("Version: ", VERSION)
-print("\n\n### SLIP14 ###\n")
-print_keys(derivation, SLIP14)
+print("\n\n### YOUR BROKEN SEED ###\n")
+print_keys(derivation, YOUR_MNEMONIC, YOUR_PASSPHRASE)
 
-print("\n\n### MNEMONIC12 ###\n")
-assert(print_keys(derivation, MNEMONIC12)
+print("\n\n### VERIFICATION TEST ###\n")
+assert(print_keys(derivation, MNEMONIC12_TEST)
     # See https://github.com/trezor/trezor-firmware/blob/fee0d70/tests/device_tests/monero/test_getaddress.py#L33
     == "4Ahp23WfMrMFK3wYL2hLWQFGt87ZTeRkufS6JoQZu6MEFDokAQeGWmu9MA3GFq1yVLSJQbKJqVAn9F9DLYGpRzRAEXqAXKM")
