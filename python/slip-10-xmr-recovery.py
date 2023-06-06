@@ -149,7 +149,7 @@ def get_keys(seedhex, derivationpath):
 
 
 def print_keys(derivation, mnemonic, passphrase = ""):
-    bip39_seed = Mnemonic("English").to_seed(mnemonic, passphrase)
+    bip39_seed = Mnemonic("english").to_seed(mnemonic, passphrase)
     pub, priv = get_keys(bip39_seed.hex(), parse_path(derivation))
     seed = monero.seed.Seed(priv.hex())
     pub_hex = '12' + seed.public_spend_key() + seed.public_view_key()
