@@ -3,7 +3,6 @@
 // [rights]  Copyright 2023 brianddk at github https://github.com/brianddk
 // [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
 // [repo]    github.com/brianddk/reddit/blob/master/c/bcmticks.c
-// [ref]     reddit.com/r/raspberry_pi/comments/16mdunq/
 // [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 // [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 // [req]     apt-get install libraspberrypi-dev
@@ -94,13 +93,13 @@ int main(int argc, char *argv[]) {
   }
   
   clo = sys_timer[clo_i];
-  if ((clo + 2 * ONE_SEC_IN_US) > UINT32_MAX) {
+  if (clo > (UINT32_MAX - (2 * ONE_SEC_IN_US))) {
     printf("ERROR: SYS_TIMER is too high, try again later\n");
     return 5;
   }
     
   cnt = arm_timer[cnt_i];
-  if (cnt > 3994967296) { // 2**32 - 300 * 1_000_000
+  if (cnt > 2294967296) { // 2**32 - 2000 * 1_000_000 ; one sec at 2GHz clock
     printf("ERROR: ARM_TIMER is too high, try again later\n");
     return 6;    
   }
