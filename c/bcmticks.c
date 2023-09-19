@@ -55,7 +55,12 @@ int main(int argc, char *argv[]) {
   }
 
   // Map the ARM Timer's registers into memory
-  arm_timer = (volatile uint32_t*)mmap(NULL, ARM_TIMER_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, BCM_PERI_BASE + ARM_TIMER_OFFSET);
+  arm_timer = (volatile uint32_t*)mmap(NULL, 
+                                       ARM_TIMER_SIZE, 
+                                       PROT_READ | PROT_WRITE, 
+                                       MAP_SHARED, 
+                                       mem_fd, 
+                                       BCM_PERI_BASE + ARM_TIMER_OFFSET);
   if (arm_timer == MAP_FAILED) {
       perror("mmap");
       close(mem_fd);
@@ -63,7 +68,12 @@ int main(int argc, char *argv[]) {
   }
 
   // Map the System Timer's registers into memory
-  sys_timer = (volatile uint32_t*)mmap(NULL, SYS_TIMER_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, BCM_PERI_BASE + SYS_TIMER_OFFSET);
+  sys_timer = (volatile uint32_t*)mmap(NULL, 
+                                       SYS_TIMER_SIZE, 
+                                       PROT_READ | PROT_WRITE, 
+                                       MAP_SHARED, 
+                                       mem_fd, 
+                                       BCM_PERI_BASE + SYS_TIMER_OFFSET);
   if (sys_timer == MAP_FAILED) {
       perror("mmap");
       close(mem_fd);
