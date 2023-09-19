@@ -3,6 +3,7 @@
 // [rights]  Copyright 2023 brianddk at github https://github.com/brianddk
 // [license] Apache 2.0 License https://www.apache.org/licenses/LICENSE-2.0
 // [repo]    github.com/brianddk/reddit/blob/master/c/bcmticks.c
+// [ref]     reddit.com/r/raspberry_pi/comments/16mdunq/
 // [btc]     BTC-b32: bc1qwc2203uym96u0nmq04pcgqfs9ldqz9l3mz8fpj
 // [tipjar]  github.com/brianddk/reddit/blob/master/tipjar/tipjar.txt
 // [req]     apt-get install libraspberrypi-dev
