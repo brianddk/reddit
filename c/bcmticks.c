@@ -9,6 +9,7 @@
 // [note]    This will pull processor ticks off the ARM timer on BCM2835 and 
 // [note]      later processors.  It requires sudo, and if run with '-e' it 
 // [note]      will write to mapped memory (DANGER!!!).  Enjoy :-)
+// [note]    Thx to geo38@reddit for optimzations
 
 #include <stdio.h>
 #include <string.h>
@@ -93,19 +94,8 @@ int main(int argc, char *argv[]) {
   }
   
   clo = sys_timer[clo_i];
-  if (clo > (UINT32_MAX - (2 * ONE_SEC_IN_US))) {
-    printf("ERROR: SYS_TIMER is too high, try again later\n");
-    return 5;
-  }
-    
-  cnt = arm_timer[cnt_i];
-  if (cnt > 2294967296) { // 2**32 - 2000 * 1_000_000 ; one sec at 2GHz clock
-    printf("ERROR: ARM_TIMER is too high, try again later\n");
-    return 6;    
-  }
-    
   start = arm_timer[cnt_i];
-  while (sys_timer[clo_i] < clo + ONE_SEC_IN_US) {};
+  while (sys_timer[clo_i] - clo < ONE_SEC_IN_US) {};
   cnt = arm_timer[cnt_i];
   
   setlocale(LC_NUMERIC, "");
